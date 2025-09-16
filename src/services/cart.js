@@ -13,7 +13,20 @@ async function deleteItem(userCart, name) {
     }
 };
 
-async function removeItem(userCart, index){};
+async function removeItem(userCart, item){
+    const indexFound = userCart.findIndex((p) => p.name === item.name)
+    const indexNormalizer = indexFound + 1;
+    if (indexFound == -1){
+        console.log("Item not found")
+        return;
+    };
+
+    if(userCart[indexFound].quantity > 1){
+        userCart[indexFound].quantity -= 1
+    } else if(userCart[indexFound].quantity == 1){
+        userCart.splice(indexFound, 1)
+    }
+};
 
 async function calculateTotal(userCart) {
     console.log(userCart.reduce((total, item) => total + item.subtotal(), 0));
